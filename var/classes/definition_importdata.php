@@ -6,17 +6,18 @@
 
 
 Fields Summary: 
-- name [input]
-- description [textarea]
+- class_name [select]
+- file [manyToOneRelation]
+- log [textarea]
 */ 
 
 
 return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
-   'id' => '1',
-   'name' => 'category',
+   'id' => '6',
+   'name' => 'importdata',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614004766,
+   'modificationDate' => 1614166310,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -70,24 +71,47 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'childs' => 
         array (
           0 => 
-          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'fieldtype' => 'input',
-             'width' => NULL,
-             'defaultValue' => NULL,
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'Brand',
+                'value' => 'brand',
+              ),
+              1 => 
+              array (
+                'key' => 'Products',
+                'value' => 'products',
+              ),
+              2 => 
+              array (
+                'key' => 'Material',
+                'value' => 'material',
+              ),
+              3 => 
+              array (
+                'key' => 'OperatingSystem',
+                'value' => 'operatingSystem',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => '',
+             'optionsProviderData' => '',
              'queryColumnType' => 'varchar',
              'columnType' => 'varchar',
              'columnLength' => 190,
              'phpdocType' => 'string',
-             'regex' => '',
-             'unique' => false,
-             'showCharCount' => false,
-             'name' => 'name',
-             'title' => 'Name',
+             'dynamicOptions' => false,
+             'name' => 'class_name',
+             'title' => 'ClassName',
              'tooltip' => '',
-             'mandatory' => true,
+             'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',
@@ -98,6 +122,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+             'fieldtype' => 'manyToOneRelation',
+             'width' => '',
+             'assetUploadPath' => '',
+             'relationType' => true,
+             'queryColumnType' => 
+            array (
+              'id' => 'int(11)',
+              'type' => 'enum(\'document\',\'asset\',\'object\')',
+            ),
+             'phpdocType' => '\\Pimcore\\Model\\Document\\Page | \\Pimcore\\Model\\Document\\Snippet | \\Pimcore\\Model\\Document | \\Pimcore\\Model\\Asset | \\Pimcore\\Model\\DataObject\\AbstractObject',
+             'objectsAllowed' => false,
+             'assetsAllowed' => true,
+             'assetTypes' => 
+            array (
+              0 => 
+              array (
+                'assetTypes' => 'text',
+              ),
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
+             'classes' => 
+            array (
+            ),
+             'pathFormatterClass' => '',
+             'name' => 'file',
+             'title' => 'File',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          2 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
              'fieldtype' => 'textarea',
              'width' => '',
@@ -108,13 +175,13 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'queryColumnType' => 'longtext',
              'columnType' => 'longtext',
              'phpdocType' => 'string',
-             'name' => 'description',
-             'title' => 'Description',
+             'name' => 'log',
+             'title' => 'LogMessage',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => NULL,
+             'locked' => false,
              'style' => '',
              'permissions' => NULL,
              'datatype' => 'data',

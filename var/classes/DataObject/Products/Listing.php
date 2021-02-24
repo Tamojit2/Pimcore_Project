@@ -82,6 +82,17 @@ public function filterByImportdate ($data, $operator = '=') {
 }
 
 /**
+* Filter by material (Material)
+* @param string|int|float|float|array $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return static
+*/
+public function filterByMaterial ($data, $operator = '=') {
+	$this->getClass()->getFieldDefinition("material")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by image (image)
 * @param string|int|float|float|array $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"

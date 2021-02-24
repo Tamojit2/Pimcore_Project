@@ -12,6 +12,7 @@ Fields Summary:
 - category [manyToOneRelation]
 - mfg [date]
 - importdate [date]
+- material [select]
 - image [image]
 - classification [objectbricks]
 - rating [select]
@@ -29,7 +30,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'products',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614007097,
+   'modificationDate' => 1614186357,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -273,6 +274,47 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'defaultValueGenerator' => '',
           )),
           6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
+             'fieldtype' => 'select',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'plastic',
+                'value' => 'plastic',
+              ),
+              1 => 
+              array (
+                'key' => 'metal',
+                'value' => 'metal',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => '',
+             'optionsProviderClass' => '\\AppBundle\\OptionProvider\\MaterialOptions',
+             'optionsProviderData' => '',
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'dynamicOptions' => false,
+             'name' => 'material',
+             'title' => 'Material',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          7 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
              'fieldtype' => 'image',
              'width' => '',
@@ -296,7 +338,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          7 => 
+          8 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
              'fieldtype' => 'objectbricks',
              'phpdocType' => '\\Pimcore\\Model\\DataObject\\Objectbrick',
@@ -322,7 +364,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          8 => 
+          9 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Select::__set_state(array(
              'fieldtype' => 'select',
              'options' => 
@@ -330,22 +372,22 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
               0 => 
               array (
                 'key' => '2 Star',
-                'value' => '2 Star',
+                'value' => '2 star',
               ),
               1 => 
               array (
                 'key' => '3 Star',
-                'value' => '3 Star',
+                'value' => '3 star',
               ),
               2 => 
               array (
                 'key' => '4 Star',
-                'value' => '4 Star',
+                'value' => '4 star',
               ),
               3 => 
               array (
                 'key' => '5 Star',
-                'value' => '5 Star',
+                'value' => '5 star',
               ),
             ),
              'width' => '',
@@ -373,7 +415,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          9 => 
+          10 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'fieldtype' => 'numeric',
              'width' => '',
@@ -404,7 +446,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          10 => 
+          11 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
              'fieldtype' => 'numeric',
              'width' => '',
@@ -435,7 +477,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          11 => 
+          12 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Multiselect::__set_state(array(
              'fieldtype' => 'multiselect',
              'options' => 
@@ -491,7 +533,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          12 => 
+          13 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\RgbaColor::__set_state(array(
              'fieldtype' => 'rgbaColor',
              'width' => NULL,
@@ -521,7 +563,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleGridView' => false,
              'visibleSearch' => false,
           )),
-          13 => 
+          14 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
              'fieldtype' => 'checkbox',
              'defaultValue' => NULL,
@@ -544,7 +586,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
              'defaultValueGenerator' => '',
           )),
-          14 => 
+          15 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
              'fieldtype' => 'booleanSelect',
              'yesLabel' => 'yes',

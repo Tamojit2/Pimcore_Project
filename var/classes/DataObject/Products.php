@@ -12,6 +12,7 @@ Fields Summary:
 - category [manyToOneRelation]
 - mfg [date]
 - importdate [date]
+- material [select]
 - image [image]
 - classification [objectbricks]
 - rating [select]
@@ -35,6 +36,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByCategory ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByMfg ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByImportdate ($value, $limit = 0, $offset = 0) 
+* @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByMaterial ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByImage ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByRating ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Products\Listing|\Pimcore\Model\DataObject\Products getByPrice ($value, $limit = 0, $offset = 0) 
@@ -53,6 +55,7 @@ protected $brand;
 protected $category;
 protected $mfg;
 protected $importdate;
+protected $material;
 protected $image;
 protected $classification;
 protected $rating;
@@ -279,6 +282,38 @@ public function getImportdate () {
 public function setImportdate ($importdate) {
 	$fd = $this->getClass()->getFieldDefinition("importdate");
 	$this->importdate = $importdate;
+	return $this;
+}
+
+/**
+* Get material - Material
+* @return string|null
+*/
+public function getMaterial () {
+	if($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) { 
+		$preValue = $this->preGetValue("material"); 
+		if($preValue !== null) { 
+			return $preValue;
+		}
+	} 
+
+	$data = $this->material;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		    return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set material - Material
+* @param string|null $material
+* @return \Pimcore\Model\DataObject\Products
+*/
+public function setMaterial ($material) {
+	$fd = $this->getClass()->getFieldDefinition("material");
+	$this->material = $material;
 	return $this;
 }
 
