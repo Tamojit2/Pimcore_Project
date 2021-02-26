@@ -9,6 +9,7 @@ use Symfony\Component\Translation\Loader\CsvFileLoader;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Pimcore\Model\Asset\MetaData\ClassDefinition\Data\Asset;
 use Pimcore\Model\DataObject\Products;
 use Pimcore\Model\DataObject\Category;
 use Pimcore\Model\DataObject\Brand;
@@ -33,6 +34,7 @@ class ProductCommand extends AbstractCommand
     
     		$brand = new \Pimcore\Model\DataObject\Importdata\Listing();
                 $brand->setCondition('class_name = ?', 'Products');
+                //$brand->setCondition(status = ?, false);
                 $brand->setLimit(1);
                 foreach ($brand as $path) {
                 	
@@ -66,6 +68,7 @@ class ProductCommand extends AbstractCommand
 			    $datas[$key-1][$column_name] = $csv[$column_key];
 			}
 		    }
+		    //p_r($datas);die;
 		    $json = json_encode($datas);
 		    fclose($handle);
 		    //print_r($json); 
@@ -122,11 +125,27 @@ class ProductCommand extends AbstractCommand
                             $obj->setBrand($cat2);
                         }
                         
+                /*       
+                $mat = new \Pimcore\Model\DataObject\Material\Listing();
+                        $mat->setCondition('name = ?', $cat->material);
+                        $mat->setLimit(1);
+                        foreach ($mat as $cat3) {
+                            p_r($cat3);die;
+                            $obj->setMaterial($cat3);
+                        }
+                        
+                 */
+                        
+                        
+                        
                 $date = \Carbon\Carbon::parse($cat->mfg);
                 $importdate = \Carbon\Carbon::parse($cat->importdate);
                 
                 $col = new \Pimcore\Model\DataObject\Data\RgbaColor();
                 $col->setRgba($cat->color);
+                
+                $image = \Pimcore\Model\Asset\Image::getByPath("/Images/".$cat->image);
+                //p_r($image->filename);die;
                 
                         
                 //$name= $cat->name;
@@ -137,28 +156,30 @@ class ProductCommand extends AbstractCommand
                 $obj->setParentId(4);
                 $obj->setSku($cat->sku);
                 $obj->setModelname($cat->modelname);
+                $obj->setMaterial($cat->material);
                 $obj->setMfg($date);
                 $obj->setImportdate($importdate);
+                $obj->setImage($image);
                 $obj->setColor($col);
                 $obj->setRating($cat->rating);
                 $obj->setPrice($cat->price);
                 $obj->setDiscount($cat->discount);
-                //$obj->setUsb($selectedValueMulti);
+                //$obj->setUsb($cat->usb);
                 if($cat->wifi == "true"){
                 $obj->setWifi(true);
-                echo "\nvalue true";
+                //echo "\nvalue true";
                 }
                 else{
                 $obj->setWifi(false);
-                echo "\nvalue false";
+                //echo "\nvalue false";
                 }
                 if($cat->bluetooth == "Yes"){
                 $obj->setBluetooth(true);
-                echo "\nvalue true";
+                //echo "\nvalue true";
                 }
                 else{
                 $obj->setBluetooth(false);
-                echo "value false";
+                //echo "value false";
                 }
                 //$obj->setWifi($cat->wifi);
                 //$obj->setBluetooth($cat->bluetooth);
@@ -190,12 +211,14 @@ class ProductCommand extends AbstractCommand
                 //p_r($material1);die;
                 foreach ($material1 as $path) {
                 	//p_r($path);die;
-                	$path->setLog("Products data imported Successfully");
+                	$path->setStatus(true);
+                	$path->setLog("Products data imported Successfully No Error");
          		$path->save();
             	}
 		
 		//p_r($material1);die;
 		//$material1->save();
+		echo "\n";
 		$this->dump("Import Data Successfully");
 		} else {
 		$this->dump("Some Error");

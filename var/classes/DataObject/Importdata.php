@@ -8,6 +8,7 @@
 Fields Summary: 
 - class_name [select]
 - file [manyToOneRelation]
+- status [checkbox]
 - log [textarea]
 */ 
 
@@ -19,6 +20,7 @@ use Pimcore\Model\DataObject\PreGetValueHookInterface;
 /**
 * @method static \Pimcore\Model\DataObject\Importdata\Listing|\Pimcore\Model\DataObject\Importdata getByClass_name ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Importdata\Listing|\Pimcore\Model\DataObject\Importdata getByFile ($value, $limit = 0, $offset = 0) 
+* @method static \Pimcore\Model\DataObject\Importdata\Listing|\Pimcore\Model\DataObject\Importdata getByStatus ($value, $limit = 0, $offset = 0) 
 * @method static \Pimcore\Model\DataObject\Importdata\Listing|\Pimcore\Model\DataObject\Importdata getByLog ($value, $limit = 0, $offset = 0) 
 */
 
@@ -28,6 +30,7 @@ protected $o_classId = "6";
 protected $o_className = "importdata";
 protected $class_name;
 protected $file;
+protected $status;
 protected $log;
 
 
@@ -110,6 +113,38 @@ public function setFile ($file) {
 		$this->markFieldDirty("file", true);
 	}
 	$this->file = $fd->preSetData($this, $file);
+	return $this;
+}
+
+/**
+* Get status - Status
+* @return bool|null
+*/
+public function getStatus () {
+	if($this instanceof PreGetValueHookInterface && !\Pimcore::inAdmin()) { 
+		$preValue = $this->preGetValue("status"); 
+		if($preValue !== null) { 
+			return $preValue;
+		}
+	} 
+
+	$data = $this->status;
+
+	if ($data instanceof \Pimcore\Model\DataObject\Data\EncryptedField) {
+		    return $data->getPlain();
+	}
+
+	return $data;
+}
+
+/**
+* Set status - Status
+* @param bool|null $status
+* @return \Pimcore\Model\DataObject\Importdata
+*/
+public function setStatus ($status) {
+	$fd = $this->getClass()->getFieldDefinition("status");
+	$this->status = $status;
 	return $this;
 }
 

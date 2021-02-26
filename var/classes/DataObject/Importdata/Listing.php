@@ -38,6 +38,17 @@ public function filterByFile ($data, $operator = '=') {
 }
 
 /**
+* Filter by status (Status)
+* @param string|int|float|float|array $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
+* @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"
+* @return static
+*/
+public function filterByStatus ($data, $operator = '=') {
+	$this->getClass()->getFieldDefinition("status")->addListingFilter($this, $data, $operator);
+	return $this;
+}
+
+/**
 * Filter by log (LogMessage)
 * @param string|int|float|float|array $data  comparison data, can be scalar or array (if operator is e.g. "IN (?)")
 * @param string $operator  SQL comparison operator, e.g. =, <, >= etc. You can use "?" as placeholder, e.g. "IN (?)"

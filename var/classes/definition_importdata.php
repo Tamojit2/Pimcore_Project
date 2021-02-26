@@ -8,6 +8,7 @@
 Fields Summary: 
 - class_name [select]
 - file [manyToOneRelation]
+- status [checkbox]
 - log [textarea]
 */ 
 
@@ -17,7 +18,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'importdata',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1614166310,
+   'modificationDate' => 1614257533,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -165,6 +166,29 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'visibleSearch' => false,
           )),
           2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Checkbox::__set_state(array(
+             'fieldtype' => 'checkbox',
+             'defaultValue' => NULL,
+             'queryColumnType' => 'tinyint(1)',
+             'columnType' => 'tinyint(1)',
+             'phpdocType' => 'bool',
+             'name' => 'status',
+             'title' => 'Status',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'defaultValueGenerator' => '',
+          )),
+          3 => 
           Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
              'fieldtype' => 'textarea',
              'width' => '',
