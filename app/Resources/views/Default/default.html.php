@@ -106,7 +106,8 @@
         <hr />
     </div>
 
-    <?php if($this->editmode) { ?>
+    <?php 
+    if($this->editmode) { ?>
         <div class="buttons">
             <a target="_blank" href="https://pimcore.com/docs/6.x/Development_Documentation/Getting_Started/Installation.html">Install Sample Data / Boilerplate</a>
             <a target="_blank" href="https://pimcore.com/docs/6.x/Development_Documentation/Getting_Started/index.html">Getting Started</a>
@@ -120,6 +121,7 @@
                 please consider using our sample data / boilerplate package which includes everything you need to get started.
             </p>
         </div>
+        
     <?php } ?>
 </div>
 

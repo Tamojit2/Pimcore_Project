@@ -34,6 +34,11 @@ services:
         tags:
             - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: getProductsObject }
             
+    AppBundle\EventListener\FileListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: getImportdataObject }
+
+            
     AppBundle\Security\Guard\WebserviceAuthenticator:
         public: false
         calls:

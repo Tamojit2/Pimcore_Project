@@ -34,8 +34,9 @@ class ProductCommand extends AbstractCommand
     
     		$brand = new \Pimcore\Model\DataObject\Importdata\Listing();
                 $brand->setCondition('class_name = ?', 'Products');
+                $brand->addConditionParam('status = ?', false);
                 //$brand->setCondition(status = ?, false);
-                $brand->setLimit(1);
+                $brand->setLimit(2);
                 foreach ($brand as $path) {
                 	
                 	//p_r($path);die;
@@ -46,10 +47,7 @@ class ProductCommand extends AbstractCommand
          	
             	}
     
-    		//$path = $input->getOptions()['file'];
-    		//p_r($path);die;
-    		//$abc = file_get_contents($path);
-    		//p_r($file);die;
+    		
     		if (($handle = fopen($file, "r")) !== FALSE) {
 		    $csvs = [];
 		    while(! feof($handle)) {
@@ -86,28 +84,14 @@ class ProductCommand extends AbstractCommand
 		     
             foreach ($data as $key => $cat)
             {
-            	//p_r($data);die;
-            	//$i=0;
-            	//p_r($cat);die;
-            	/*
-            	if($cat->name != NULL){
-            	$this->dump("index value ".$key);
-            	p_r($cat);
             	
-            	}
-            	else{
-            	$this->dump("Some Error");
-            	} 
-            	*/
+            	//p_r($cat);die;
+            	
             	echo "\n";
             	
             	if($cat->sku != NULL){
-            	$this->dump("index value ".$key);
+            	$this->dump("index value No ".$key);
                 $obj = new \Pimcore\Model\DataObject\Products();
-                
-                //p_r($cat->modelname);die;
-                //p_r($cat->description);die;
-                //p_r($cat->wifi);die;
                 
                 $category = new \Pimcore\Model\DataObject\Category\Listing();
                         $category->setCondition('name = ?', $cat->category);
@@ -134,9 +118,7 @@ class ProductCommand extends AbstractCommand
                             $obj->setMaterial($cat3);
                         }
                         
-                 */
-                        
-                        
+                 */ 
                         
                 $date = \Carbon\Carbon::parse($cat->mfg);
                 $importdate = \Carbon\Carbon::parse($cat->importdate);
@@ -147,9 +129,6 @@ class ProductCommand extends AbstractCommand
                 $image = \Pimcore\Model\Asset\Image::getByPath("/Images/".$cat->image);
                 //p_r($image->filename);die;
                 
-                        
-                //$name= $cat->name;
-                //p_r($name);die;
                 //$category->setKey("type".$i);
                 $obj->setKey(ucfirst($cat->modelname));
                 $obj->setPublished(true);
@@ -167,54 +146,57 @@ class ProductCommand extends AbstractCommand
                 //$obj->setUsb($cat->usb);
                 if($cat->wifi == "true"){
                 $obj->setWifi(true);
-                //echo "\nvalue true";
-                }
-                else{
+                }else{
                 $obj->setWifi(false);
-                //echo "\nvalue false";
                 }
                 if($cat->bluetooth == "Yes"){
                 $obj->setBluetooth(true);
-                //echo "\nvalue true";
-                }
-                else{
+                }else{
                 $obj->setBluetooth(false);
-                //echo "value false";
                 }
                 //$obj->setWifi($cat->wifi);
-                //$obj->setBluetooth($cat->bluetooth);
-                //$obj->setDescription($cat->description);
                 
                 $obj->save();
                 $this->dump("Data Saved");
                 $i++;
                 //break;
-                }
-                else{
+                
+                $import = new \Pimcore\Model\DataObject\Importdata\Listing();
+                $import->setCondition('class_name = ?', 'Products');
+                //p_r($import);die;
+                foreach ($import as $path) {
+                	//p_r($path);die;
+                	$path->setStatus(true);
+                	$path->setLog("No of rows ".$i."  "."Products data imported Successfully No Error");
+         		$path->save();
+            	}
+                
+                }else{
                 $this->dump("There is no value on Index ".$key);
                 } 
                 //break;
-                
-                //$category->save();
                 //$this->dump($i);
             }
-            
-            
             //$this->dump($i);die;           
             //die;
             if($i>0) {
-		//$category->save();
-		//$material1 = new \Pimcore\Model\DataObject\Importdata();
 		
-		$material1 = new \Pimcore\Model\DataObject\Importdata\Listing();
-                $material1->setCondition('class_name = ?', 'Products');
-                //p_r($material1);die;
-                foreach ($material1 as $path) {
+		/*
+		$import = new \Pimcore\Model\DataObject\Importdata\Listing();
+                $import->setCondition('class_name = ?', 'Products');
+                //p_r($import);die;
+                foreach ($import as $path) {
                 	//p_r($path);die;
                 	$path->setStatus(true);
-                	$path->setLog("Products data imported Successfully No Error");
+                	$path->setLog("Products data imported Successfully No Error"."total row saved ".$i);
          		$path->save();
-            	}
+            	} */
+            	
+            	$mail = new \Pimcore\Mail();
+		$mail->addTo('tamojit.saha30@gmail.com');
+		$mail->setSubject('Products Status');
+		$mail->setBodyText("New Products have been added");
+		$mail->send();
 		
 		//p_r($material1);die;
 		//$material1->save();
