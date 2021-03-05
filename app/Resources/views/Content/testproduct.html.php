@@ -18,12 +18,7 @@
     <title>Pagination</title>   
     <link rel="stylesheet"  
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">   
-    <style> 
-    
-    *{
-  	box-sizing: border-box;
-	}
-  
+    <style>   
     table {  
         border-collapse: collapse;  
     }  
@@ -35,21 +30,7 @@
          
         input, button{   
             height: 34px;   
-        }
-        
-        #myInput {
-		  background-image: url('/static/icon/search.png');   /* Add a search icon to input */
-		  background-position: 10px 12px;   /* Position the search icon */
-		  background-repeat: no-repeat;     /* Do not repeat the icon image */
-		  width: 200px;   /* width */
-		  font-size: 16px;   /* Increase font-size */
-		  padding: 12px 20px 12px 20px;   /* Add some padding */
-		  border: 1px solid #ddd;   /* Add a grey border */
-		  margin-bottom: 12px;   /* Add some space below the input */
-		  float: right;
-		  margin-right: 12px;
-	}
-   
+        }   
   
     .pagination {   
         display: inline-block;   
@@ -71,14 +52,7 @@
     }   
         </style>   
   </head>   
-  
-  <body> 
-  
-    <input type="text" id="myInput" onkeyup="searchProductByName()" placeholder="Search for names..">
-	<!-- <button id="myBtn" onclick="myFunction()">Search</button> -->
-
-	
-	
+  <body>   
   <center>  
     <?php  
          
@@ -121,13 +95,13 @@
         <p>This page demonstrates the basic    
            Pagination using PHP and MySQL.   
         </p>   
-        <table id="myTable" class="table table-striped table-condensed    
+        <table class="table table-striped table-condensed    
                                           table-bordered">   
           <thead>   
             <tr>   
               <th width="10%">SKU</th>   
-              <th onclick="sortTable(1)">ModelName</th>   
-              <th onclick="sortTable(2)">Brand</th>  
+              <th>ModelName</th>   
+              <th>Brand</th>  
               <th>Category</th>
               <th>Price</th>
               <th>Discount</th>
@@ -185,22 +159,22 @@
         $pagLink = "";       
       
         if($page>=2){   
-            echo "<a href='http://exam.local/Productspage?page=".($page-1)."'>  Prev </a>";   
+            echo "<a href='http://exam.local/Testpage?page=".($page-1)."'>  Prev </a>";   
         }       
                    
         for ($i=1; $i<=$total_pages; $i++) {
         	   
           if ($i == $page) {   
-              $pagLink .= "<a class = 'active' href='http://exam.local/Productspage?page=".$i."'>".$i." </a>";   
+              $pagLink .= "<a class = 'active' href='http://exam.local/Testpage?page=".$i."'>".$i." </a>";   
           }         
           else  {   
-              $pagLink .= "<a href='http://exam.local/Productspage?page=".$i."'>".$i." </a>";     
+              $pagLink .= "<a href='http://exam.local/Testpage?page=".$i."'>".$i." </a>";     
           }   
         };     
         echo $pagLink;
            
         if($page<$total_pages){   
-            echo "<a href='http://exam.local/Productspage?page=".($page+1)."'>  Next </a>";   
+            echo "<a href='http://exam.local/Testpage?page=".($page+1)."'>  Next </a>";   
         }
            
   
@@ -217,95 +191,13 @@
   </div>  
 </center>   
   <script>   
-  
-  function searchProductByName() {
-	  // Declare variables
-	  var input, searchKey, table, rows, tableData, tableData1, i, txtValue;
-	  input = document.getElementById("myInput");
-	  searchKey = input.value.trim().toUpperCase();
-	  table = document.getElementById("myTable");
-	  rows = table.getElementsByTagName("tr");
-	  
-	  // Loop through all table rows, and hide those who don't match the search query
-	  for (i = 0; i < rows.length; i++) {
-	    tableData = rows[i].getElementsByTagName("td")[1];
-	    if (tableData) {
-	      txtValue = tableData.textContent || tableData.innerText;
-	      if (txtValue.toUpperCase().indexOf(searchKey) > -1) {
-		rows[i].style.display = "";
-	      } else {
-		rows[i].style.display = "none";
-	      }
-	    
-	    }
-	  }
-	}
-	
-
-function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("myTable");
-  switching = true;
-  //Set the sorting direction to ascending:
-  dir = "asc"; 
-  /*Make a loop that will continue until
-  no switching has been done:*/
-  while (switching) {
-    //start by saying: no switching is done:
-    switching = false;
-    rows = table.rows;
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
-      x = rows[i].getElementsByTagName("td")[n];
-      y = rows[i + 1].getElementsByTagName("td")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
-      if (dir == "asc") {
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch= true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      //Each time a switch is done, increase this count by 1:
-      switchcount ++;      
-    } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-	
-   
     function go2Page()   
     {   
         var page = document.getElementById("page").value;   
         page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'http://exam.local/Productspage?page='+page;   
+        window.location.href = 'http://exam.local/Testpage?page='+page;   
     }   
-  </script>
-  
+  </script>  
   </body>   
 </html>  
 
